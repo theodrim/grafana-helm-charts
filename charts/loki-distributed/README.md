@@ -24,6 +24,16 @@ helm repo add grafana https://grafana.github.io/helm-charts
 
 Major version upgrades listed here indicate that there is an incompatible breaking change needing manual actions.
 
+### From 0.69.10 to 0.69.14
+
+`compactor_address` has to be explicitly set in the `common` section of the config, now also required to have protocol.
+```yaml
+loki:
+  config: |
+    common:
+      compactor_address: http://{{ include "loki.compactorFullname" . }}:3100
+```
+
 ### From 0.68.x to 0.69.0
 The in-memory `fifocache` has been renamed to more general `embedded_cache`, which currently doesn't have a `max_size_items` attribute.
 ```yaml
